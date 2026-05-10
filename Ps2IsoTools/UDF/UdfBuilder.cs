@@ -69,6 +69,13 @@ namespace Ps2IsoTools.UDF
             set => buildParams.UseJoliet = value;
         }
 
+        /// <summary>
+        /// Gets or sets the File Set Identifier written into the UDF FileSetDescriptor.
+        /// Defaults to VolumeIdentifier. For PS2 compatibility set to "PLAYSTATION2 DVD-ROM FILE SET".
+        /// </summary>
+        public string FileSetIdentifier { get; set; } = "";
+
+
         public UdfBuilder()
         {
             dirs = new List<UdfBuildDirectoryInfo>();
@@ -390,8 +397,7 @@ namespace Ps2IsoTools.UDF
             // ####################################################################
 
             LongAllocationDescriptor rootDirectoryICB = new((uint)rootDirectory.GetUdfDataSize(Encoding.BigEndianUnicode), rootDirectorySector);
-            FileSetDescriptor fsd = new FileSetDescriptor(0, buildParams.VolumeIdentifier, buildParams.VolumeIdentifier, rootDirectoryICB);
-            fixedRegions.Add(new BaseTaggedDescriptorRegion(fsd, focus));
+            FileSetDescriptor fsd = new FileSetDescriptor(0, buildParams.VolumeIdentifier, string.IsNullOrEmpty(FileSetIdentifier) ? buildParams.VolumeIdentifier : FileSetIdentifier, rootDirectoryICB); fixedRegions.Add(new BaseTaggedDescriptorRegion(fsd, focus));
             focus += IsoUtilities.SectorSize;
 
             TerminalDescriptor fstd = new TerminalDescriptor((uint)focus / IsoUtilities.SectorSize);
