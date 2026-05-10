@@ -20,6 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
+using DiscUtils.Udf;
 using Ps2IsoTools.UDF.Descriptors;
 using Ps2IsoTools.UDF.PartitionMaps;
 
