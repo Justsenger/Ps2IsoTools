@@ -390,7 +390,7 @@ namespace Ps2IsoTools.UDF
             // ####################################################################
 
             LongAllocationDescriptor rootDirectoryICB = new((uint)rootDirectory.GetUdfDataSize(Encoding.BigEndianUnicode), rootDirectorySector);
-            FileSetDescriptor fsd = new FileSetDescriptor(0, buildParams.VolumeIdentifier, "PLAYSTATION2 DVD-ROM FILE SET", rootDirectoryICB);
+            FileSetDescriptor fsd = new FileSetDescriptor(0, buildParams.VolumeIdentifier, buildParams.VolumeIdentifier, rootDirectoryICB);
             fixedRegions.Add(new BaseTaggedDescriptorRegion(fsd, focus));
             focus += IsoUtilities.SectorSize;
 
